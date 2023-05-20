@@ -1,0 +1,120 @@
+Aleksandra Balcerzak WCY20KA1S1
+Lab3 - Bytecode
+
+Mój program iteracyjnie oblicza wartość silni z n
+
+public class Main {
+    public static void main(String[] args) {
+        int n = 5;
+        if (n < 0) {
+            throw new IllegalArgumentException("Negative number");
+        }
+
+        int result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+
+        System.out.println(result);
+    }
+}
+
+public class Main {
+  public Main();
+    descriptor: ()V
+    Code:
+       0: aload_0         // Wczytuje referencję "this" na stos
+       1: invokespecial #1     // Method java/lang/Object."<init>":()V  // Wywołuje specjalną metodę #1, czyli konstruktor klasy "java/lang/Object"
+       4: return          // Zwraca wartość i kończy działanie konstruktora
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    Code:
+       0: iconst_5         // Umieszcza wartość stałej 5 na stosie
+       1: istore_1         // Zapisuje wartość ze stosu do zmiennej lokalnej 1 (int)
+       2: iload_1          // Wczytuje wartość zmiennej lokalnej 1 na stos
+       3: ifge          16   // Skacze do linii 16, jeśli wartość na stosie jest większa lub równa 0
+       6: new           #7   // class java/lang/IllegalArgumentException     // Tworzy nową instancję klasy "java/lang/IllegalArgumentException"
+       9: dup               // Duplikuje referencję na stosie
+      10: ldc           #9    // String Negative number   	// Wczytuje stałą o indeksie 9 (łańcuch znaków) na stos
+      12: invokespecial #11   // Method java/lang/IllegalArgumentException."<init>":(Ljava/lang/String;)V   // Wywołuje specjalną metodę #11, czyli konstruktor klasy "java/lang/IllegalArgumentException"
+      15: athrow            // Rzuca wyjątek (IllegalArgumentException) z referencją na stosie
+      16: iconst_1         // Umieszcza wartość stałą 1 na stosie
+      17: istore_2         // Zapisuje wartość ze stosu do zmiennej lokalnej 2 (int)
+      18: iconst_2         // Umieszcza wartość stałą 2 na stosie
+      19: istore_3         // Zapisuje wartość ze stosu do zmiennej lokalnej 3 (int)
+      20: iload_3          // Wczytuje wartość zmiennej lokalnej 3 na stos
+      21: iload_1          // Wczytuje wartość zmiennej lokalnej 1 na stos
+      22: if_icmpgt     35    // Field java/lang/System.out:Ljava/io/PrintStream;		 // Porównuje dwie wartości ze stosu
+      25: iload_2          // Wczytuje wartość zmiennej lokalnej 2 na stos
+      26: iload_3          // Wczytuje wartość zmiennej lokalnej 3 na stos
+      27: imul             // Mnoży dwie wartości na stosie
+      28: istore_2         // Zapisuje wynik mnożenia do zmiennej lokalnej 2 (int)
+      29: iinc          3, 1   // Zwiększa wartość zmiennej lokalnej 3 o 1
+      32: goto          20   // Skacze do linii 20
+      35: getstatic     #14   // Wczytuje statyczną wartość z pola java/lang/System.out na stos
+      38: iload_2			// Wczytuje wartość zmiennej lokalnej 2 na stos
+      39: invokevirtual #20                 // Method java/io/PrintStream.println:(I)V      // Wywołuje wirtualną metodę #20 (java/io/PrintStream.println:(I)V)
+      42: return		// Zwraca void i kończy działanie metody
+}
+
+/////////
+
+fun main(args: Array<String>) {
+    val n = 5
+    if (n < 0) {
+        throw IllegalArgumentException("Negative number")
+    }
+
+    var result = 1
+    for (i in 2..n) {
+        result *= i
+    }
+
+    println(result)
+}
+
+
+
+public final class MainKt {
+  public static final void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    Code:
+       0: aload_0
+       1: ldc           #9                  // String args
+       3: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: iconst_5
+       7: istore_1
+       8: nop
+       9: iconst_1
+      10: istore_2
+      11: iconst_2
+      12: istore_3
+      13: iload_2
+      14: iload_3
+      15: imul
+      16: istore_2
+      17: iload_3
+      18: iload_1
+      19: if_icmpeq     28
+      22: iinc          3, 1
+      25: goto          13
+      28: getstatic     #21                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      31: iload_2
+      32: invokevirtual #27                 // Method java/io/PrintStream.println:(I)V
+      35: return
+}
+
+
+Możemy zauważyć, że oba programy są dość podobne. 
+Kod Javy działa następująco: 
+-Wywołuje konstruktor klasy Object.
+-Sprawdza, czy wartość na stosie jest mniejsza niż zero i wyrzuca IllegalArgumentException w przeciwnym przypadku.
+-Mnoży dwie liczby i inkrementuje trzecią wartość, aż do spełnienia warunku.
+-Wyświetla wynik mnożenia na standardowym wyjściu.
+Natomiast kod napisany w Kotlinie:
+-Sprawdza, czy argument 'args' jest niepusty (nie-null) i w przeciwnym przypadku wyrzuca NullPointerException
+-Wykonuje pętlę mnożenia dwóch liczb i inkrementuje trzecią wartość, aż do spełnienia warunku.
+-Wyświetla wynik mnożenia na standardowym wyjściu.
+
+Główną więc różnicą jaką możemy zauważyć jest to, że Java w warunku if sprawdza, czy n jest większe lub równe 0, z kolei w programie napisanym w Kotlinie warunek ten nie jest sprawdzany, ponieważ 5 zawsze będzie większe od 0, za to w 8 operacji Kotlina możemy zauważyć instrukcję nop, której nie spotkaliśmy w programie Java. 
